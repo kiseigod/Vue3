@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let person = {
+            name:'张三',
+            age:20
+        }
+        
+        // 模拟Vue2中实现响应式
+        // #region
+        // let p = {}
+        // Object.defineProperty(p,'name',{
+        //     configurable:true,
+        //     get(){
+        //         return person.name
+        //     },
+        //     set(value){
+        //         console.log('有人修改了name属性');
+        //         person.name = value
+        //     }
+        // })
+        // Object.defineProperty(p,'age',{
+        //     get(){
+        //         return person.age
+        //     },
+        //     set(value){
+        //         console.log('有人修改了age属性');
+        //         person.age = value
+        //     }
+        // })
+        // #endregion
+    
+        // 模拟Vue3中实现响应式
+        // #region
+        const p = new Proxy(person,{
+            get(tarage,propName){
+                console.log('@');
+                return Reflect.get(tarage,propName)
+            },
+            set(tarage,propName,value){
+                Reflect.set(tarage,propName,value)
+            },
+            deleteProperty(tarage,propName){
+                return Reflect.deleteProperty (tarage,propName)
+            },
+        })
+        // #endregion
+    
+        
+    </script>
+</body>
+</html>
